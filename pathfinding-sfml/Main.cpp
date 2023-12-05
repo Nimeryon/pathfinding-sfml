@@ -5,7 +5,6 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
-
 void DrawFPSMeter(const sf::Time& deltaTime)
 {
     // Stylizing overlay
