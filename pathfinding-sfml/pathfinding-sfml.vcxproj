@@ -141,6 +141,7 @@
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_draw.cpp" />
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_widgets.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_rectpack.h" />
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_textedit.h" />
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_truetype.h" />
+    <ClInclude Include="Astar.hpp" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Delegate.h" />
@@ -168,6 +170,8 @@
     <ClInclude Include="Grid.hxx" />
     <ClInclude Include="GridVisualizer.h" />
     <ClInclude Include="ISceneDependant.h" />
+    <ClInclude Include="List.hpp" />
+    <ClInclude Include="Node.hpp" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Tile.h" />
