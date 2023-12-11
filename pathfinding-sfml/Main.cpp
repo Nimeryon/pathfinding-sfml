@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Grid.h"
 #include "Tile.h"
+#include "Variables.h"
 
 int main()
 {

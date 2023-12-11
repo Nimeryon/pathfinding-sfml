@@ -8,7 +8,7 @@ struct Node
 	{
 		unsigned x, y;
 
-		int cost_f = 0;
+		int cost_f = 0; //g + h
 		int cost_g = 0;
 		int cost_h = 0;
 
