@@ -8,74 +8,74 @@
 // Grid without pointers //
 ///////////////////////////
 
-template <typename TileType>
-Grid<TileType>::Grid(int width, int height) :
+template <typename Type>
+Grid<Type>::Grid(int width, int height) :
 	m_width(width),
 	m_height(height)
 {
 	Init();
 }
 
-template <typename TileType>
-Grid<TileType>::Grid(const Vector2i& size) :
+template <typename Type>
+Grid<Type>::Grid(const Vector2i& size) :
 	Grid(size.x, size.y)
 {}
 
-template <typename TileType>
-Grid<TileType>::~Grid()
+template <typename Type>
+Grid<Type>::~Grid()
 {
-	m_tiles.clear();
+	m_grid.clear();
 }
 
-template <typename TileType>
-int Grid<TileType>::GetWidth() const { return m_width; }
+template <typename Type>
+int Grid<Type>::GetWidth() const { return m_width; }
 
-template <typename TileType>
-int Grid<TileType>::GetHeight() const { return m_height; }
+template <typename Type>
+int Grid<Type>::GetHeight() const { return m_height; }
 
-template <typename TileType>
-int Grid<TileType>::GetTileIndex(int x, int y) const { return y * m_width + x; }
+template <typename Type>
+int Grid<Type>::GetIndex(int x, int y) const { return y * m_width + x; }
 
-template <typename TileType>
-int Grid<TileType>::GetTileIndex(const Vector2i& position) const { return GetTileIndex(position.x, position.y); }
+template <typename Type>
+int Grid<Type>::GetIndex(const Vector2i& position) const { return GetIndex(position.x, position.y); }
 
-template <typename TileType>
-const std::vector<TileType>& Grid<TileType>::GetTiles() const { return m_tiles; }
+template <typename Type>
+const std::vector<Type>& Grid<Type>::GetGrid() const { return m_grid; }
 
-template <typename TileType>
-const TileType& Grid<TileType>::GetTile(int x, int y) const { return m_tiles[GetTileIndex(x, y)]; }
+template <typename Type>
+const Type& Grid<Type>::GetValue(int x, int y) const { return m_grid[GetIndex(x, y)]; }
 
-template <typename TileType>
-const TileType& Grid<TileType>::GetTile(const Vector2i& position) const { return GetTile(position.x, position.y); }
+template <typename Type>
+const Type& Grid<Type>::GetValue(const Vector2i& position) const { return GetValue(position.x, position.y); }
 
-template <typename TileType>
-void Grid<TileType>::SetTile(int x, int y, const TileType& tile)
+template <typename Type>
+void Grid<Type>::SetValue(int x, int y, const Type& tile)
 {
 	assert(x >= 0 && x < m_width && y >= 0 && y < m_height);
 
-	m_tiles[GetTileIndex()] = tile;
+	m_grid[GetIndex(x, y)] = tile;
 }
 
-template <typename TileType>
-void Grid<TileType>::SetTile(const Vector2i& position, const TileType& tile) { SetTile(position.x, position.y, tile); }
+template <typename Type>
+void Grid<Type>::SetValue(const Vector2i& position, const Type& tile) { SetValue(position.x, position.y, tile); }
 
-template <typename TileType>
-void Grid<TileType>::Init()
+template <typename Type>
+void Grid<Type>::Init()
 {
-	m_tiles.reserve(m_width * m_height);
+	m_grid.reserve(m_width * m_height);
 	for (int y = 0; y < m_height; ++y)
 		for (int x = 0; x < m_width; ++x)
-			m_tiles.push_back(TileType());
+			m_grid.push_back(Type());
 }
 
-template <typename TileType>
-std::ostream& operator<<(std::ostream& os, const Grid<TileType>& grid)
+template <typename Type>
+std::ostream& operator<<(std::ostream& os, const Grid<Type>& grid)
 {
 	for (int y = 0; y < grid.GetHeight(); ++y)
 	{
 		for (int x = 0; x < grid.GetWidth(); ++x)
 		{
-			os << grid.GetTile(x, y);
+			os << grid.GetValue(x, y);
 			if (x != grid.GetWidth() - 1)
 				os << ", ";
 		}
@@ -91,81 +91,81 @@ std::ostream& operator<<(std::ostream& os, const Grid<TileType>& grid)
 // Grid with pointers //
 ////////////////////////
 
-template <typename TileType>
-Grid<TileType*>::Grid(int width, int height) :
+template <typename Type>
+Grid<Type*>::Grid(int width, int height) :
 	m_width(width),
 	m_height(height)
 {
 	Init();
 }
 
-template <typename TileType>
-Grid<TileType*>::Grid(const Vector2i& size) :
+template <typename Type>
+Grid<Type*>::Grid(const Vector2i& size) :
 	Grid(size.x, size.y)
 {}
 
-template <typename TileType>
-Grid<TileType*>::~Grid()
+template <typename Type>
+Grid<Type*>::~Grid()
 {
 	for (int i = 0; i < m_width * m_height; ++i)
 	{
-		delete m_tiles[i];
-		m_tiles[i] = nullptr;
+		delete m_grid[i];
+		m_grid[i] = nullptr;
 	}
 
-	m_tiles.clear();
+	m_grid.clear();
 }
 
-template <typename TileType>
-int Grid<TileType*>::GetWidth() const { return m_width; }
+template <typename Type>
+int Grid<Type*>::GetWidth() const { return m_width; }
 
-template <typename TileType>
-int Grid<TileType*>::GetHeight() const { return m_height; }
+template <typename Type>
+int Grid<Type*>::GetHeight() const { return m_height; }
 
-template <typename TileType>
-int Grid<TileType*>::GetTileIndex(int x, int y) const { return y * m_width + x; }
+template <typename Type>
+int Grid<Type*>::GetIndex(int x, int y) const { return y * m_width + x; }
 
-template <typename TileType>
-int Grid<TileType*>::GetTileIndex(const Vector2i& position) const { return GetTileIndex(position.x, position.y); }
+template <typename Type>
+int Grid<Type*>::GetIndex(const Vector2i& position) const { return GetIndex(position.x, position.y); }
 
-template <typename TileType>
-const std::vector<TileType*>& Grid<TileType*>::GetTiles() const { return m_tiles; }
+template <typename Type>
+const std::vector<Type*>& Grid<Type*>::GetGrid() const { return m_grid; }
 
-template <typename TileType>
-const TileType* Grid<TileType*>::GetTile(int x, int y) const { return m_tiles[GetTileIndex(x, y)]; }
+template <typename Type>
+const Type* Grid<Type*>::GetValue(int x, int y) const { return m_grid[GetIndex(x, y)]; }
 
-template <typename TileType>
-const TileType* Grid<TileType*>::GetTile(const Vector2i& position) const { return GetTile(position.x, position.y); }
+template <typename Type>
+const Type* Grid<Type*>::GetValue(const Vector2i& position) const { return GetValue(position.x, position.y); }
 
-template <typename TileType>
-void Grid<TileType*>::SetTile(int x, int y, const TileType* tile)
+template <typename Type>
+void Grid<Type*>::SetValue(int x, int y, const Type* tile)
 {
 	assert(x >= 0 && x < m_width && y >= 0 && y < m_height);
 
-	delete m_tiles[GetTileIndex(x, y)];
-	m_tiles[GetTileIndex(x, y)] = tile;
+	delete m_grid[GetIndex(x, y)];
+	m_grid[GetIndex(x, y)] = tile;
 }
 
-template <typename TileType>
-void Grid<TileType*>::SetTile(const Vector2i& position, const TileType* tile) { SetTile(position.x, position.y, tile); }
+template <typename Type>
+void Grid<Type*>::SetValue(const Vector2i& position, const Type* tile) { SetTile(position.x, position.y, tile); }
 
-template <typename TileType>
-void Grid<TileType*>::Init()
+template <typename Type>
+void Grid<Type*>::Init()
 {
-	m_tiles.reserve(m_width * m_height);
+	m_grid.reserve(m_width * m_height);
 	for (int y = 0; y < m_height; ++y)
 		for (int x = 0; x < m_width; ++x)
-			m_tiles.push_back(new TileType());
+			m_grid.push_back(new Type());
 }
 
-template <typename TileType>
-std::ostream& operator<<(std::ostream& os, const Grid<TileType*>& grid)
+template <typename Type>
+std::ostream& operator<<(std::ostream& os, const Grid<Type*>& grid)
 {
 	for (int y = 0; y < grid.GetHeight(); ++y)
 	{
 		for (int x = 0; x < grid.GetWidth(); ++x)
 		{
-			os << *grid.GetTile(x, y);
+			os << *grid.SetValue(x, y);
 			if (x != grid.GetWidth() - 1)
 				os << ", ";
 		}
