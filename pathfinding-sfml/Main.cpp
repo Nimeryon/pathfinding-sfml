@@ -3,11 +3,12 @@
 #include "Game.h"
 #include "Grid.h"
 #include "Tile.h"
+#include "Variables.h"
 
 int main()
 {
     // Exemple
-    Grid<Tile> grid(10, 10);
+    Grid<Tile> grid(SIZE_X, SIZE_Y);
     grid.SetValue(0, 0, TileType::START);
     grid.SetValue(9, 9, TileType::END);
     std::cout << grid;
