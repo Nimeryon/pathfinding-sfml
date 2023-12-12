@@ -2,8 +2,8 @@
 
 float GetNodeDistance(Node* const start_n, Node* const end_n)
 {
-	sf::Vector2<unsigned> startPos = { start_n->x, start_n->y };
-	sf::Vector2<unsigned> endPos = { end_n->x, end_n->y };
+	sf::Vector2<unsigned> startPos = { start_n->GetX(), start_n->GetY() };
+	sf::Vector2<unsigned> endPos = { end_n->GetX(), end_n->GetY() };
 	
 	float distance_x = (startPos.x - endPos.x);
 	float distance_y = (startPos.y - endPos.y);
@@ -13,9 +13,8 @@ float GetNodeDistance(Node* const start_n, Node* const end_n)
 
 void ResetNode(Node& n)
 {
-	n.cost_f = 0;
-	n.cost_g = 0;
-	n.cost_h = 0;
+	n.SetG(0);
+	n.SetH(0);
 	n.parent = nullptr;
 }
 
@@ -32,74 +31,14 @@ void retracePath(Node* const start_n, Node* const end_n)
 std::vector<Node*> GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool diagonal)
 {
 	std::vector<Node*> neighbour_nodes;
-	neighbour_nodes.reserve(9);
-
-#pragma region Deprecated
-	/*
-if (!diagonal) {
-	auto n = [&nodes, &neighbour_nodes, &current_node](int x, int y) {
-		const int X = current_node->x + x;
-		const int Y = current_node->y + y;
-
-		if (X > SIZE_X - 1 || Y > SIZE_Y - 1 || X < 0 || Y < 0)
-			return;
-
-		const int index = Y * SIZE_X + X;
-
-		if (index >= nodes.size() || index < 0)
-			return;
-
-		auto* node = &nodes[index];
-
-		neighbour_nodes.push_back(node);
-	};
-
-	for (int y = -1; y <= 1; y++) {
-		if (y == 0)
-			continue;
-		n(0, y);
-	}
-
-	for (int x = -1; x <= 1; x++) {
-		if (x == 0)
-			continue;
-		n(x, 0);
-	}
-
-	return neighbour_nodes;
-}
-
-for (int y = -1; y <= 1; y++) {
-	for (int x = -1; x <= 1; x++) {
-		if (x == 0 && y == 0)
-			continue;
-
-		const int X = current_node->x + x;
-		const int Y = current_node->y + y;
-
-		if (X > SIZE_X - 1 || Y > SIZE_Y - 1 || X < 0 || Y < 0)
-			continue;
-
-		const int index = Y * SIZE_X + X;
-
-		if (index >= nodes.size() || index < 0)
-			continue;
-
-		auto* node = &nodes[index];
-
-		neighbour_nodes.push_back(node);
-	}
-}
-*/
-#pragma endregion
 
 	for (int i = -1; i <= 1; ++i)
 		for (int j = -1; j <= 1; ++j)
 		{
 			if (ShouldBeIgnored(i, j, diagonal)) continue;
-			unsigned nodeX = current_node->x + i;
-			unsigned nodeY = current_node->y + j;
-			if (!CheckPosition(nodeX, nodeY)) continue;
+			int nodeX = current_node->GetX() + i;
+			int nodeY = current_node->GetY() + j;
+			if (!CheckPosition(grid, nodeX, nodeY)) continue;
 
 			neighbour_nodes.emplace_back(grid.GetValue(nodeX, nodeY));
 		}
@@ -107,7 +46,7 @@ for (int y = -1; y <= 1; y++) {
 	return neighbour_nodes;
 }
 
-bool CheckPosition(int x, int y)
+bool CheckPosition(Grid<Node>& grid, int x, int y)
 {
 	if (x > SIZE_X || x<0 || y>SIZE_Y || y < 0) return false;
 	return true;
@@ -130,7 +69,7 @@ Node* FindLowestF(std::vector<Node*> nodes)
 	int i = 0;
 	for (auto n : nodes)
 	{
-		if (n->cost_f < lowest_f->cost_f)
+		if (n->GetF() < lowest_f->GetF())
 		{
 			lowest_f = n;
 			i++;
@@ -151,8 +90,8 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 	Node* current_n;
 	openNet.emplace_back(start_n);
 
-	current_n->cost_h = GetNodeDistance(start_n, end_n);
-	current_n->cost_f = current_n->cost_h;
+	current_n->SetH(GetNodeDistance(start_n, end_n));
+
 
 	while (openNet.size() > 0)
 	{
@@ -176,28 +115,24 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 
 			else if (std::find(openNet.begin(), openNet.end(), node) != openNet.end())
 			{
-				float temp_g = n->cost_g + GetNodeDistance(node, n);
+				float temp_g = n->GetG() + GetNodeDistance(node, n);
 
 
-				if (temp_g < node->cost_g)
+				if (temp_g < node->GetG())
 				{
 					node->parent = n;
-					node->cost_g = temp_g;
-					node->cost_f = node->cost_g + node->cost_h;
+					node->SetG(temp_g);
 				}
 			}
 			else
 			{
 				node->parent = n;
-				node->cost_h = GetNodeDistance(node, end_n);
-				node->cost_f = node->cost_g + node->cost_h;
+				node->SetH(GetNodeDistance(node, end_n));
 
 				openNet.emplace_back(node);
 			}
 		}
-		//Find lowest f cost node n
-		//Add n to closedNet and remove from openNEt
-		//...
+
 	}
 
 	return false;
