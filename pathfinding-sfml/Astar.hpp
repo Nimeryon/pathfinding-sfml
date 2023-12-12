@@ -9,8 +9,14 @@
 
 float GetNodeDistance(const Node& start_n, const Node& end_n);
 
-std::vector<Node*> GetNodeNeighbours(std::vector<Node>& nodes, Node* current_node, bool diagonal = true);
-
 void ResetNode(Node& n);
+
+bool ShouldBeIgnored(int x, int y, bool diagonal);
+
+bool CheckPosition(int x, int y);
+
+std::vector<Node*> GetNodeNeighbours(const Grid<Node>& grid, Node* current_node, bool diagonal = true);
+
+Node* FindLowestF(std::vector<Node*> nodes);
 
 bool FindAstarPath(Node* start_n = nullptr, Node* end_n = nullptr);

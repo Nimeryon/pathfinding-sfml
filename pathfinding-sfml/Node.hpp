@@ -16,6 +16,7 @@ struct Node
 
 	};
 
+#pragma region Operator
 	bool operator == (const Node& n) const
 	{
 		return x == n.x && y == n.y;
@@ -25,4 +26,12 @@ struct Node
 	{
 		return x != n.x || y != n.y;
 	}
+
+	inline bool operator < (const Node& n)
+	{
+		return cost_f < n.cost_f;
+	}
+#pragma endregion
+
+	
 };
