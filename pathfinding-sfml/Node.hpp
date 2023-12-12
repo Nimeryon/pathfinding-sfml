@@ -1,5 +1,11 @@
 #pragma once
 
+enum class NodeType
+{
+	StartingNode, TargetedNode, PathNode, ObstacleNode, None
+};
+
+
 struct Node
 {
 	Node(unsigned m_x, unsigned m_y) : x(m_x), y(m_y) {}
@@ -8,12 +14,15 @@ struct Node
 	{
 		unsigned x, y;
 
+		bool walkable	= true;
+		bool path		= false;
+
 		int cost_f = 0; //g + h
 		int cost_g = 0;
 		int cost_h = 0;
 
 		Node* parent = nullptr;
-
+		NodeType type;
 	};
 
 #pragma region Operator

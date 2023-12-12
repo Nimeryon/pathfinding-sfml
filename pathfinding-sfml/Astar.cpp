@@ -19,6 +19,16 @@ void ResetNode(Node& n)
 	n.parent = nullptr;
 }
 
+void retracePath(Node* const start_n, Node* const end_n)
+{
+	Node* node = end_n;
+	while (*node != *start_n)
+	{
+		node->path = true;
+		node = node->parent;
+	}
+}
+
 std::vector<Node*> GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool diagonal)
 {
 	std::vector<Node*> neighbour_nodes;
@@ -141,10 +151,6 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 	Node* current_n;
 	openNet.emplace_back(start_n);
 
-	//TODO:
-	//if (!isGridCorrect())
-	//	return;
-
 	current_n->cost_h = GetNodeDistance(start_n, end_n);
 	current_n->cost_f = current_n->cost_h;
 
@@ -158,20 +164,20 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 
 		if (n == end_n)
 		{
-			//TODO:
-			//TraceThePath
-			return 1;
+			retracePath(start_n, end_n);
+			return true;
 		}
 		
 		for (auto* node : neighbours)
 		{
-			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())
-			{
+			if (!node->walkable) continue;
 
-			}
+			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())continue;
+
 			else if (std::find(openNet.begin(), openNet.end(), node) != openNet.end())
 			{
 				float temp_g = n->cost_g + GetNodeDistance(node, n);
+
 
 				if (temp_g < node->cost_g)
 				{
@@ -194,5 +200,5 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 		//...
 	}
 
-	return 0;
+	return false;
 }
