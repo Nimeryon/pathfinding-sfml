@@ -43,10 +43,10 @@ template <typename Type>
 const std::vector<Type>& Grid<Type>::GetGrid() const { return m_grid; }
 
 template <typename Type>
-const Type& Grid<Type>::GetValue(int x, int y) const { return m_grid[GetIndex(x, y)]; }
+Type& Grid<Type>::GetValue(int x, int y) { return m_grid[GetIndex(x, y)]; }
 
 template <typename Type>
-const Type& Grid<Type>::GetValue(const Vector2i& position) const { return GetValue(position.x, position.y); }
+Type& Grid<Type>::GetValue(const Vector2i& position) { return GetValue(position.x, position.y); }
 
 template <typename Type>
 void Grid<Type>::SetValue(int x, int y, const Type& tile)
@@ -69,7 +69,7 @@ void Grid<Type>::Init()
 }
 
 template <typename Type>
-std::ostream& operator<<(std::ostream& os, const Grid<Type>& grid)
+std::ostream& operator<<(std::ostream& os, Grid<Type>& grid)
 {
 	for (int y = 0; y < grid.GetHeight(); ++y)
 	{
@@ -132,10 +132,10 @@ template <typename Type>
 const std::vector<Type*>& Grid<Type*>::GetGrid() const { return m_grid; }
 
 template <typename Type>
-const Type* Grid<Type*>::GetValue(int x, int y) const { return m_grid[GetIndex(x, y)]; }
+Type* Grid<Type*>::GetValue(int x, int y) { return m_grid[GetIndex(x, y)]; }
 
 template <typename Type>
-const Type* Grid<Type*>::GetValue(const Vector2i& position) const { return GetValue(position.x, position.y); }
+Type* Grid<Type*>::GetValue(const Vector2i& position) { return GetValue(position.x, position.y); }
 
 template <typename Type>
 void Grid<Type*>::SetValue(int x, int y, const Type* tile)
@@ -159,7 +159,7 @@ void Grid<Type*>::Init()
 }
 
 template <typename Type>
-std::ostream& operator<<(std::ostream& os, const Grid<Type*>& grid)
+std::ostream& operator<<(std::ostream& os, Grid<Type*>& grid)
 {
 	for (int y = 0; y < grid.GetHeight(); ++y)
 	{

@@ -22,8 +22,8 @@ public:
 	int GetIndex(const Vector2i& position) const;
 
 	const std::vector<Type>& GetGrid() const;
-	const Type& GetValue(int x, int y) const;
-	const Type& GetValue(const Vector2i& position) const;
+	Type& GetValue(int x, int y);
+	Type& GetValue(const Vector2i& position);
 
 	void SetValue(int x, int y, const Type& tile);
 	void SetValue(const Vector2i& position, const Type& tile);
@@ -53,8 +53,8 @@ public:
 	int GetIndex(const Vector2i& position) const;
 
 	const std::vector<Type*>& GetGrid() const;
-	const Type* GetValue(int x, int y) const;
-	const Type* GetValue(const Vector2i& position) const;
+	Type* GetValue(int x, int y);
+	Type* GetValue(const Vector2i& position);
 
 	void SetValue(int x, int y, const Type* tile);
 	void SetValue(const Vector2i& position, const Type* tile);
@@ -67,9 +67,9 @@ protected:
 };
 
 template<typename Type>
-std::ostream& operator<<(std::ostream& os, const Grid<Type>& grid);
+std::ostream& operator<<(std::ostream& os, Grid<Type>& grid);
 
 template<typename Type>
-std::ostream& operator<<(std::ostream& os, const Grid<Type*>& grid);
+std::ostream& operator<<(std::ostream& os, Grid<Type*>& grid);
 
 #include "Grid.hxx"

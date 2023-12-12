@@ -8,8 +8,7 @@ int main()
 {
     // Exemple
     Grid<Tile> grid(10, 10);
-    grid.SetValue(0, 0, TileType::START);
-    grid.SetValue(9, 9, TileType::END);
+    grid.GetValue(0, 0).SetTileType(TileType::START);
     std::cout << grid;
 
     Game game("Default Scene");
