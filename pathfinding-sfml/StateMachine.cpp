@@ -1,29 +1,29 @@
 #include "StateMachine.h"
 #include "Scene.h"
 
-StateMachine* StateMachine::_instance = nullptr;
-std::mutex StateMachine::_mutex;
+StateMachine* StateMachine::m_instance = nullptr;
+std::mutex StateMachine::m_mutex;
 
 Delegate<> StateMachine::stateChange;
 
 StateMachine* StateMachine::Instance()
 {
-	std::lock_guard lock(_mutex);
+	std::lock_guard lock(m_mutex);
 
-	if (!_instance) _instance = new StateMachine();
-	return _instance;
+	if (!m_instance) m_instance = new StateMachine();
+	return m_instance;
 }
 
 StateMachine::StateMachine() :
-	_scene(nullptr),
-	_isSetting(false)
+	m_scene(nullptr),
+	m_isSetting(false)
 {}
 StateMachine::~StateMachine() = default;
 
 void StateMachine::SetScene(SceneRef state)
 {
-	_isSetting = true;
-	_scene = std::move(state);
+	m_isSetting = true;
+	m_scene = std::move(state);
 }
 
 void StateMachine::HandleStateUpdate()
@@ -48,15 +48,15 @@ void StateMachine::Draw(sf::RenderWindow& window)
 	GetScene()->Draw(window);
 }
 
-SceneRef& StateMachine::GetScene() { return _scenes.top(); }
+SceneRef& StateMachine::GetScene() { return m_scenes.top(); }
 
 void StateMachine::_HandleStateChange()
 {
-	if (!_isSetting) return;
+	if (!m_isSetting) return;
 
 	stateChange();
 
-	_scenes.push(std::move(_scene));
-	_scenes.top()->Init();
-	_isSetting = false;
+	m_scenes.push(std::move(m_scene));
+	m_scenes.top()->Init();
+	m_isSetting = false;
 }
