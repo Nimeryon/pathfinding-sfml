@@ -1,36 +1,34 @@
 #include "DefaultScene.h"
-
 #include <format>
-
-#include "imgui.h"
+#include "Config.h"
+#include <iostream>
 
 void DefaultScene::Init()
 {
-    shape.setRadius(100.f);
-    shape.setFillColor(sf::Color::Green);
+    font.loadFromFile("Assets/Fonts/Roboto-Regular.ttf");
+    SetText();
 }
 
-void DefaultScene::ImGui(const sf::Time& dt)
+void DefaultScene::SetText()
 {
-    // Stylizing overlay
-    ImGuiWindowFlags imFlags = ImGuiWindowFlags_NoDecoration
-        | ImGuiWindowFlags_NoTitleBar
-        | ImGuiWindowFlags_AlwaysAutoResize
-        | ImGuiWindowFlags_NoSavedSettings
-        | ImGuiWindowFlags_NoFocusOnAppearing
-        | ImGuiWindowFlags_NoMove
-        | ImGuiWindowFlags_NoMouseInputs
-        | ImGuiWindowFlags_NoNav;
-    ImGui::SetNextWindowPos({ 4, 4 });
-    ImGui::SetNextWindowBgAlpha(0.5f);
+    const int windowWidth = Config::GetConfig<int>("Assets\\config.json", "Window", "Width");
+    const int windowHeight = Config::GetConfig<int>("Assets\\config.json", "Window", "Height");
 
-    // Creating overlay
-    ImGui::Begin("FPS Overlay", 0, imFlags);
-    ImGui::Text(std::format("{} FPS", floorf(1.f / dt.asSeconds())).c_str());
-    ImGui::End();
+    title.setFont(font);
+    title.setPosition(10, 10);
+    title.setCharacterSize(24);
+    title.setString("PATH FIND ING");
+    title.setFillColor(sf::Color::White);
+
+    subText.setFont(font);
+    subText.setPosition(windowWidth, windowHeight);
+    subText.setCharacterSize(windowHeight / 30);
+    title.setString("Press 'Space' to start");
 }
+
 
 void DefaultScene::Draw(sf::RenderWindow& window)
 {
-    window.draw(shape);
+    window.draw(title);
+    window.draw(subText);
 }
