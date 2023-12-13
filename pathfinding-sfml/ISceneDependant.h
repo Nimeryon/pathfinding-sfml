@@ -6,5 +6,5 @@ public:
 	virtual ~ISceneDependant();
 
 protected:
-	virtual void _OnSceneChange() {};
+	virtual void _OnSceneChange() {}
 };
