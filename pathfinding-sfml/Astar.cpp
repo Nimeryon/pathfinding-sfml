@@ -1,9 +1,9 @@
-#include "Astar.hpp"
+#include "Astar.h"
 
-float GetNodeDistance(Node* const start_n, Node* const end_n)
+float Astar::GetNodeDistance(Node* const start_n, Node* const end_n)
 {
-	sf::Vector2<unsigned> startPos = { start_n->GetX(), start_n->GetY() };
-	sf::Vector2<unsigned> endPos = { end_n->GetX(), end_n->GetY() };
+	sf::Vector2<int> startPos = { start_n->GetX(), start_n->GetY() };
+	sf::Vector2<int> endPos = { end_n->GetX(), end_n->GetY() };
 	
 	float distance_x = (startPos.x - endPos.x);
 	float distance_y = (startPos.y - endPos.y);
@@ -18,7 +18,7 @@ void ResetNode(Node& n)
 	n.parent = nullptr;
 }
 
-void retracePath(Node* const start_n, Node* const end_n)
+void Astar::retracePath(Node* const start_n, Node* const end_n)
 {
 	Node* node = end_n;
 	while (*node != *start_n)
@@ -28,7 +28,7 @@ void retracePath(Node* const start_n, Node* const end_n)
 	}
 }
 
-std::vector<Node*> GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool diagonal)
+std::vector<Node*> Astar::GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool diagonal)
 {
 	std::vector<Node*> neighbour_nodes;
 
@@ -40,19 +40,19 @@ std::vector<Node*> GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool 
 			int nodeY = current_node->GetY() + j;
 			if (!CheckPosition(grid, nodeX, nodeY)) continue;
 
-			neighbour_nodes.emplace_back(grid.GetValue(nodeX, nodeY));
+			/*neighbour_nodes.emplace_back(grid.GetValue(nodeX, nodeY));*/
 		}
 
 	return neighbour_nodes;
 }
 
-bool CheckPosition(Grid<Node>& grid, int x, int y)
+bool Astar::CheckPosition(Grid<Node>& grid, int x, int y)
 {
 	if (x > SIZE_X || x<0 || y>SIZE_Y || y < 0) return false;
 	return true;
 }
 
-bool ShouldBeIgnored(int x, int y, bool diagonal)
+bool Astar::ShouldBeIgnored(int x, int y, bool diagonal)
 {
 	std::vector<Vector2> mask = { {0,0} };
 
@@ -63,7 +63,7 @@ bool ShouldBeIgnored(int x, int y, bool diagonal)
 	return false;
 }
 
-Node* FindLowestF(std::vector<Node*> nodes)
+Node* Astar::FindLowestF(std::vector<Node*> nodes)
 {
 	Node* lowest_f = nodes.front();
 	int i = 0;
@@ -79,7 +79,7 @@ Node* FindLowestF(std::vector<Node*> nodes)
 	return lowest_f;
 }
 
-bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal = true)
+bool Astar::FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal = true)
 {
 	if (!start_n || !end_n)
 		return false;
@@ -87,7 +87,7 @@ bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal =
 	std::vector<Node*> openNet;
 	std::vector<Node*> closedNet;
 
-	Node* current_n;
+	Node* current_n = start_n;
 	openNet.emplace_back(start_n);
 
 	current_n->SetH(GetNodeDistance(start_n, end_n));
