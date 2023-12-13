@@ -6,14 +6,11 @@
 #include "StateMachine.h"
 #include "Scene.h"
 
-GameData::GameData(const std::string& filePath) :
-	config(filePath)
-{}
-
-Game::Game(const std::string& title, const sf::Time& logicTime)
+Game::Game(const std::string& title, const sf::Time& logicTime) :
+	m_title(title)
 {
-	const float windowWidth = m_data->config.GetConfig<float>("Window", "Width");
-	const float windowHeight = m_data->config.GetConfig<float>("Window", "Height");
+	const int windowWidth = Config::GetConfig<int>("Assets\\config.json", "Window", "Width");
+	const int windowHeight = Config::GetConfig<int>("Assets\\config.json", "Window", "Height");
 	m_data->window.create(
 		sf::VideoMode(windowWidth, windowHeight, 1),
 		m_title
