@@ -1,6 +1,7 @@
 #pragma once
 namespace sf
 {
+	class Event;
 	class Time;
 }
 
@@ -29,7 +30,7 @@ public:
 
 	void HandleStateUpdate();
 
-	void ProcessInputs();
+	void ProcessInput(const sf::Event& event);
 	// Called every drawn frame
 	void Update(const sf::Time& dt);
 	// Called every logic update (default 60 times a second

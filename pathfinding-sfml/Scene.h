@@ -8,7 +8,7 @@ public:
 
 	virtual void Init() {}
 
-	virtual void ProcessInputs() {}
+	virtual void ProcessInput(const sf::Event& event) {}
 
 	virtual void Update(const sf::Time& dt) {}
 	virtual void FixedUpdate(const sf::Time& dt) {}

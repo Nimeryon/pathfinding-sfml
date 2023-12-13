@@ -41,10 +41,9 @@ void Game::_ProcessInputs() const
 		if (event.type == sf::Event::Closed)
 			m_data->window.close();
 
+		StateMachine::Instance()->ProcessInput(event);
 		ImGui::SFML::ProcessEvent(m_data->window, event);
 	}
-
-	StateMachine::Instance()->ProcessInputs();
 }
 
 void Game::_Run()

@@ -31,9 +31,9 @@ void StateMachine::HandleStateUpdate()
 	_HandleStateChange();
 }
 
-void StateMachine::ProcessInputs()
+void StateMachine::ProcessInput(const sf::Event& event)
 {
-	GetScene()->ProcessInputs();
+	GetScene()->ProcessInput(event);
 }
 void StateMachine::Update(const sf::Time& dt)
 {
