@@ -3,6 +3,7 @@
 
 #include "Node.h"
 #include "Grid.h"
+#include "TileGrid.h"
 
 namespace Pathfinding
 {
@@ -12,7 +13,7 @@ namespace Pathfinding
 
 	bool CheckPosition(const Grid<Node>& grid, int x, int y);
 
-	Grid<Node> GeneratePathfindingGraph(Grid<Tile>& grid);
+	Grid<Node> GeneratePathfindingGraph(TileGrid& grid);
 
 	void ResetGraph(Grid<Node>& graph);
 }

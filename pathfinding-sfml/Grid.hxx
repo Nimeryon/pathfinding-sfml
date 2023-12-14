@@ -49,6 +49,12 @@ template <typename Type>
 Type& Grid<Type>::GetValue(const Vector2i& position) { return GetValue(position.x, position.y); }
 
 template <typename Type>
+const Type& Grid<Type>::GetValue(int x, int y) const { return m_grid[GetIndex(x, y)]; }
+
+template <typename Type>
+const Type& Grid<Type>::GetValue(const Vector2i& position) const { return GetValue(position.x, position.y); }
+
+template <typename Type>
 void Grid<Type>::SetValue(int x, int y, const Type& tile)
 {
 	assert(x >= 0 && x < m_width && y >= 0 && y < m_height);

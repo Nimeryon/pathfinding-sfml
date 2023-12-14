@@ -6,15 +6,11 @@ class Node
 {
 public:
     Node(const Vector2i& position) :
-        m_position(position),
-        m_cost_g(0),
-        m_cost_h(0)
+        m_position(position)
     {}
 
     Node(int x, int y) : 
-        m_position( x, y ),
-        m_cost_g(0),
-        m_cost_h(0)
+        m_position( x, y )
     {}
 
     Node(){}
@@ -23,11 +19,16 @@ public:
     int GetY() const { return m_position.y; }
     const Vector2i& GetPosition() const { return m_position; }
 
-    int GetF() const { return m_cost_g + m_cost_h; }
+    int GetF() const { return (m_cost_g + m_cost_h) * m_Tile->GetSpeedFactor(); }
     int GetG() const { return m_cost_g; }
     int GetH() const { return m_cost_h; }
 
+    const Tile* GetTile() const { return m_Tile; }
+
     float GetNodeDistance(const Node* node) const;
+    int GetTileX() const { return m_Tile->GetGridPosition().x; }
+    int GetTileY() const { return m_Tile->GetGridPosition().y; }
+    TileType GetType() const { return m_Tile->GetTileType(); }
 
     void SetG(int cost_g) { m_cost_g = cost_g; }
     void SetH(int cost_h) { m_cost_h = cost_h; }
@@ -38,9 +39,8 @@ public:
     void SetPosition(Vector2i pos) { m_position = pos; }
     void SetPosition(int x,int y) { m_position.x = x; m_position.y = y; }
 
-
-    bool isWalkable() { return m_Tile->GetTileType() != TileType::WALL; }
-    TileType GetType() { return m_Tile->GetTileType(); }
+    bool IsWalkable() const { return m_Tile->GetTileType() != TileType::WALL; }
+    bool IsPortal() const { return m_Tile->GetTileType() == TileType::PORTAL; }
 
     void ResetNode();
 
