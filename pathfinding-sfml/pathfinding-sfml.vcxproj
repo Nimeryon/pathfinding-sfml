@@ -29,13 +29,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 2024</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 2024</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -48,7 +48,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>Intel C++ Compiler 2024</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -141,6 +141,7 @@
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_draw.cpp" />
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_tables.cpp" />
     <ClCompile Include="..\Dependencies\ImGUI\include\imgui_widgets.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -148,6 +149,8 @@
     <ClCompile Include="GridVisualizer.cpp" />
     <ClCompile Include="ISceneDependant.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
@@ -160,6 +163,7 @@
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_rectpack.h" />
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_textedit.h" />
     <ClInclude Include="..\Dependencies\ImGUI\include\imstb_truetype.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Delegate.h" />
@@ -170,9 +174,13 @@
     <ClInclude Include="Grid.hxx" />
     <ClInclude Include="GridVisualizer.h" />
     <ClInclude Include="ISceneDependant.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Variables.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
