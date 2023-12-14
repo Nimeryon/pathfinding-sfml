@@ -13,6 +13,8 @@ public:
 	void Draw(sf::RenderWindow& window) override;
 	void SetText();
 
+	void ProcessInput(const sf::Event& event) override;
+
 private:
 	sf::Text title;
 	sf::Text subText;

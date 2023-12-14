@@ -3,6 +3,10 @@
 #include "Config.h"
 #include <iostream>
 
+#include "GameScene.h"
+#include "imgui-SFML.h"
+#include "StateMachine.h"
+
 void DefaultScene::Init()
 {
     font.loadFromFile("Assets/Fonts/Roboto-Regular.ttf");
@@ -32,10 +36,15 @@ void DefaultScene::SetText()
     subText.setPosition(subTextX, subTextY);
 }
 
-
-
 void DefaultScene::Draw(sf::RenderWindow& window)
 {
     window.draw(title);
     window.draw(subText);
+}
+
+void DefaultScene::ProcessInput(const sf::Event& event)
+{
+    if (event.type == sf::Event::KeyReleased)
+        if (event.key.code == sf::Keyboard::Space)
+			StateMachine::Instance()->SetScene(std::make_unique<GameScene>());
 }

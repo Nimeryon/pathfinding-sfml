@@ -1,10 +1,22 @@
 #include "GameScene.h"
+#include "GridVisualizer.h"
+
+GameScene::~GameScene()
+{
+    delete grid;
+    delete visualizer;
+}
 
 void GameScene::Init()
 {
-    obstacle.setRadius(10.f);
-    obstacle.setFillColor(sf::Color::Blue);
+    grid = new Grid<Tile>(100, 100);
+    grid->GetValue(0, 0).SetTileType(TileType::START);
+    grid->GetValue(9, 9).SetTileType(TileType::END);
 
-    initialNode.setFillColor(sf::Color::Green);
-    finalNode.setFillColor(sf::Color::Red);
+    visualizer = new GridVisualizer(grid, { 50, 50 });
+}
+
+void GameScene::Draw(sf::RenderWindow& window)
+{
+    visualizer->Draw(window, sf::RenderStates());
 }
