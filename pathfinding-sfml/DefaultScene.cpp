@@ -1,36 +1,50 @@
 #include "DefaultScene.h"
-
 #include <format>
+#include "Config.h"
+#include <iostream>
 
-#include "imgui.h"
+#include "GameScene.h"
+#include "imgui-SFML.h"
+#include "StateMachine.h"
 
 void DefaultScene::Init()
 {
-    shape.setRadius(100.f);
-    shape.setFillColor(sf::Color::Green);
+    font.loadFromFile("Assets/Fonts/Roboto-Regular.ttf");
+    SetText();
 }
 
-void DefaultScene::ImGui(const sf::Time& dt)
+void DefaultScene::SetText()
 {
-    // Stylizing overlay
-    ImGuiWindowFlags imFlags = ImGuiWindowFlags_NoDecoration
-        | ImGuiWindowFlags_NoTitleBar
-        | ImGuiWindowFlags_AlwaysAutoResize
-        | ImGuiWindowFlags_NoSavedSettings
-        | ImGuiWindowFlags_NoFocusOnAppearing
-        | ImGuiWindowFlags_NoMove
-        | ImGuiWindowFlags_NoMouseInputs
-        | ImGuiWindowFlags_NoNav;
-    ImGui::SetNextWindowPos({ 4, 4 });
-    ImGui::SetNextWindowBgAlpha(0.5f);
+    const int windowWidth = Config::GetConfig<int>("Assets\\config.json", "Window", "Width");
+    const int windowHeight = Config::GetConfig<int>("Assets\\config.json", "Window", "Height");
 
-    // Creating overlay
-    ImGui::Begin("FPS Overlay", 0, imFlags);
-    ImGui::Text(std::format("{} FPS", floorf(1.f / dt.asSeconds())).c_str());
-    ImGui::End();
+    title.setFont(font);
+    title.setCharacterSize(windowHeight / 15);
+    title.setStyle(sf::Text::Bold);
+    title.setString("PATHFINDING");
+
+    float titleX = (windowWidth - title.getLocalBounds().width) / 2;
+    float titleY = (windowHeight / 2) - (windowHeight / 10);
+    title.setPosition(titleX, titleY);
+
+    subText.setFont(font);
+    subText.setCharacterSize(windowHeight / 30);
+    subText.setString("Press 'Space' to start");
+
+    float subTextX = (windowWidth - subText.getLocalBounds().width) / 2;
+    float subTextY = windowHeight / 2;
+    subText.setPosition(subTextX, subTextY);
 }
 
 void DefaultScene::Draw(sf::RenderWindow& window)
 {
-    window.draw(shape);
+    window.draw(title);
+    window.draw(subText);
+}
+
+void DefaultScene::ProcessInput(const sf::Event& event)
+{
+    if (event.type == sf::Event::KeyReleased)
+        if (event.key.code == sf::Keyboard::Space)
+			StateMachine::Instance()->SetScene(std::make_unique<GameScene>());
 }

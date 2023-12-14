@@ -13,6 +13,7 @@ namespace sf
 #include <stack>
 #include <mutex>
 
+#include <SFML/Graphics.hpp>
 #include "Delegate.h"
 
 class Scene;

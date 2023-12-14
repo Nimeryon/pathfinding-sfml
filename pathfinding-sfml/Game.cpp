@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 
 #include "DefaultScene.h"
+#include "GameScene.h"
 #include "StateMachine.h"
 #include "Scene.h"
 
