@@ -1,6 +1,7 @@
 #include "Astar.h"
+#include "Pathfinding.h"
 
-std::stack<Vector2i> Astar::RetracePath(Node* const start_n, Node* const end_n)
+std::stack<Vector2i> Astar::RetracePath(Node* start_n, Node* end_n)
 {
 	std::stack<Vector2i> path;
 	Node* node = end_n;

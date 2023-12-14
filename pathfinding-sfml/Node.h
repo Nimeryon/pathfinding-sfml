@@ -28,8 +28,8 @@ public:
     int GetH() const { return m_cost_h; }
 
     float GetNodeDistance(const Node* node) const;
-    int GetTileX() const{}
-    int GetTileY() const{}
+    int GetTileX() const { return m_Tile->GetGridPosition().x; }
+    int GetTileY() const { return m_Tile->GetGridPosition().y; }
 
     float GetNodeDistance(Node* const node);
 

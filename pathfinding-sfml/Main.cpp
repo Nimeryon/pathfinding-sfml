@@ -9,7 +9,8 @@
 int main()
 {
     // Exemple
-    Grid<Tile> grid(10, 10);
+    TileGrid grid({10, 10});
+
     grid.GetValue(0, 0).SetTileType(TileType::START);
     grid.GetValue(9, 9).SetTileType(TileType::END);
     std::cout << grid;

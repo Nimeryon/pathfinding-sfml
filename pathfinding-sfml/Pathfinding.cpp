@@ -34,7 +34,7 @@ bool Pathfinding::CheckPosition(const Grid<Node>& grid, int x, int y)
 	return true;
 }
 
-Grid<Node> Pathfinding::GeneratePathfindingGraph(Grid<Tile>& grid)
+Grid<Node> Pathfinding::GeneratePathfindingGraph(TileGrid& grid)
 {
 	Grid<Node> nodes(grid.GetWidth(), grid.GetHeight());
 	for (int y = 0; y < grid.GetHeight(); ++y)
@@ -43,11 +43,8 @@ Grid<Node> Pathfinding::GeneratePathfindingGraph(Grid<Tile>& grid)
 			Tile* tile = &grid.GetValue(x,y);
 
 			if (grid.GetValue(x, y).GetTileType() == TileType::PORTAL)
-				nodes.GetValue(x, y).SetTile(&grid.GetValue(
-												tile->GetLinkPos().x, 
-												tile->GetLinkPos().y));
-			else
-				nodes.GetValue(x, y).SetTile(&grid.GetValue(x, y));
+				nodes.GetValue(x, y).SetTile(&grid.GetValue(tile->GetLinkPosition()));
+			else nodes.GetValue(x, y).SetTile(&grid.GetValue(x, y));
 			nodes.GetValue(x, y).SetPosition(x, y);
 		}
 

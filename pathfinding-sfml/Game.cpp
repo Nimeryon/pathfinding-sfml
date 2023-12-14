@@ -10,7 +10,8 @@ GameData::GameData(const std::string& filePath) :
 	config(filePath)
 {}
 
-Game::Game(const std::string& title, const sf::Time& logicTime)
+Game::Game(const std::string& title, const sf::Time& logicTime) :
+	m_title(title)
 {
 	const float windowWidth = m_data->config.GetConfig<float>("Window", "Width");
 	const float windowHeight = m_data->config.GetConfig<float>("Window", "Height");
