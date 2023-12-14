@@ -23,15 +23,15 @@ std::vector<Node*> Pathfinding::GetNodeNeighbours(Grid<Node>& grid, Node* curren
 			int nodeY = current_node->GetY() + j;
 			if (!CheckPosition(grid, nodeX, nodeY)) continue;
 
-			neighbour_nodes.emplace_back(grid.GetValue(nodeX, nodeY)); //Encore cette ligne qui fait de la merde <-----
+			neighbour_nodes.emplace_back(&grid.GetValue(nodeX, nodeY));
 		}
 
 	return neighbour_nodes;
 }
 
-bool Pathfinding::CheckPosition(Grid<Node>& grid, int x, int y)
+bool Pathfinding::CheckPosition(const Grid<Node>& grid, int x, int y)
 {
-	if (x > grid.GetWidth() || x<0 || y>grid.GetHeight() || y < 0) return false;
+	if (x >= grid.GetWidth() || x < 0 || y >= grid.GetHeight() || y < 0) return false;
 	return true;
 }
 

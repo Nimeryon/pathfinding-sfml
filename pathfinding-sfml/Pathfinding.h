@@ -10,7 +10,7 @@ namespace Pathfinding
 
 	std::vector<Node*> GetNodeNeighbours(Grid<Node>& grid, Node* current_node, bool diagonal = true);
 
-	bool CheckPosition(Grid<Node>& grid, int x, int y);
+	bool CheckPosition(const Grid<Node>& grid, int x, int y);
 
 	Grid<Node> GeneratePathfindingGraph(Grid<Tile>& grid);
 

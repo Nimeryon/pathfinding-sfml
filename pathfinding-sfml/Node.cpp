@@ -8,7 +8,7 @@ void Node::ResetNode()
 	m_path = false;
 }
 
-float Node::GetNodeDistance(Node* const node)
+float Node::GetNodeDistance(const Node* node) const
 {
 	sf::Vector2<int> startPos = { GetX(), GetY()};
 	sf::Vector2<int> endPos = { node->GetX(), node->GetY() };

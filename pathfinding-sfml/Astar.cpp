@@ -4,6 +4,8 @@ std::stack<Vector2i> Astar::RetracePath(Node* const start_n, Node* const end_n)
 {
 	std::stack<Vector2i> path;
 	Node* node = end_n;
+
+	path.push(end_n->GetPosition());
 	while (*node != *start_n)
 	{
 		node->m_path = true;

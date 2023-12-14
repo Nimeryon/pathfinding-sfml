@@ -27,13 +27,13 @@ public:
     int GetG() const { return m_cost_g; }
     int GetH() const { return m_cost_h; }
 
-    float GetNodeDistance(Node* const node);
+    float GetNodeDistance(const Node* node) const;
 
     void SetG(int cost_g) { m_cost_g = cost_g; }
     void SetH(int cost_h) { m_cost_h = cost_h; }
 
-    void SetParent(Node* const parentNode) { m_parent = parentNode; }
-    void SetTile(Tile* const tile) { m_Tile = tile; }
+    void SetParent(Node* parentNode) { m_parent = parentNode; }
+    void SetTile(Tile* tile) { m_Tile = tile; }
 
     void SetPosition(Vector2i pos) { m_position = pos; }
     void SetPosition(int x,int y) { m_position.x = x; m_position.y = y; }
