@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 
 #include "DefaultScene.h"
+#include "GameScene.h"
 #include "StateMachine.h"
 #include "Scene.h"
 
@@ -22,6 +23,7 @@ Game::Game(const std::string& title, const sf::Time& logicTime) :
 	ImGui::SFML::Init(m_data->window);
 
 	StateMachine::Instance()->SetScene(std::make_unique<DefaultScene>());
+	//StateMachine::Instance()->SetScene(std::make_unique<GameScene>());
 
 	_Run();
 }

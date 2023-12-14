@@ -15,16 +15,23 @@ void DefaultScene::SetText()
     const int windowHeight = Config::GetConfig<int>("Assets\\config.json", "Window", "Height");
 
     title.setFont(font);
-    title.setPosition(10, 10);
-    title.setCharacterSize(24);
-    title.setString("PATH FIND ING");
-    title.setFillColor(sf::Color::White);
+    title.setCharacterSize(windowHeight / 15);
+    title.setStyle(sf::Text::Bold);
+    title.setString("PATHFINDING");
+
+    float titleX = (windowWidth - title.getLocalBounds().width) / 2;
+    float titleY = (windowHeight / 2) - (windowHeight / 10);
+    title.setPosition(titleX, titleY);
 
     subText.setFont(font);
-    subText.setPosition(windowWidth, windowHeight);
     subText.setCharacterSize(windowHeight / 30);
-    title.setString("Press 'Space' to start");
+    subText.setString("Press 'Space' to start");
+
+    float subTextX = (windowWidth - subText.getLocalBounds().width) / 2;
+    float subTextY = windowHeight / 2;
+    subText.setPosition(subTextX, subTextY);
 }
+
 
 
 void DefaultScene::Draw(sf::RenderWindow& window)
