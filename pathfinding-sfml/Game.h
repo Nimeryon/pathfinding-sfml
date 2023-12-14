@@ -4,11 +4,8 @@
 
 struct GameData
 {
-	GameData(const std::string& filePath = "Assets\\config.json");
-
 	sf::RenderWindow window;
 	sf::Time logicTime;
-	Config config;
 };
 
 typedef std::shared_ptr<GameData> GameDataRef;

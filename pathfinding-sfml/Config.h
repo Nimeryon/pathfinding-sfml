@@ -1,24 +1,31 @@
 #pragma once
+#include <mutex>
+
 #include "json.hpp"
 
 class Config final
 {
 public:
-	Config(const std::string& filePath);
-	~Config();
+	static Config* Instance();
 
 	Config(Config const&) = delete;
 	void operator=(Config const&) = delete;
 
-	nlohmann::json& GetConfig();
+	static const nlohmann::json& GetConfig(const std::string& path);
 	template <typename T>
-	T GetConfig(const std::string& category, const std::string& value)
+	static const T& GetConfig(const std::string& path, const std::string& category, const std::string& value)
 	{
-		return GetConfig()[category][value].get<T>();
+		return GetConfig(path)[category][value].get<T>();
 	}
 
+protected:
+	Config();
+	~Config();
+
 private:
-	std::string m_filePath;
-	nlohmann::json m_jsonData;
+	static Config* m_instance;
+	static std::mutex m_mutex; // For allowing multithreaded use
+
+	std::map<std::string, nlohmann::json> m_configs;
 };
 

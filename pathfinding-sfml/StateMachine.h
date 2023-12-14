@@ -13,6 +13,7 @@ namespace sf
 #include <stack>
 #include <mutex>
 
+#include <SFML/Graphics.hpp>
 #include "Delegate.h"
 
 class Scene;
@@ -46,13 +47,13 @@ protected:
 	~StateMachine();
 
 private:
-	static StateMachine* _instance;
-	static std::mutex _mutex; // For allowing multithreaded use
+	static StateMachine* m_instance;
+	static std::mutex m_mutex; // For allowing multithreaded use
 
-	std::stack<SceneRef> _scenes;
-	SceneRef _scene;
+	std::stack<SceneRef> m_scenes;
+	SceneRef m_scene;
 
-	bool _isSetting;
+	bool m_isSetting;
 
 	void _HandleStateChange();
 };
