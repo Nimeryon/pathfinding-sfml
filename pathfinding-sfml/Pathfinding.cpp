@@ -42,7 +42,7 @@ Grid<Node> Pathfinding::GeneratePathfindingGraph(TileGrid& grid)
 		{
 			Tile* tile = &grid.GetValue(x,y);
 
-			if (grid.GetValue(x, y).GetTileType() == TileType::PORTAL)
+			if (grid.GetTileType({x, y}) == TileType::PORTAL)
 				nodes.GetValue(x, y).SetTile(&grid.GetValue(tile->GetLinkPosition()));
 			else nodes.GetValue(x, y).SetTile(&grid.GetValue(x, y));
 			nodes.GetValue(x, y).SetPosition(x, y);

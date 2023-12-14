@@ -11,6 +11,10 @@ public:
 	Vector2i GetEndPosition() const;
 	const TileType& GetTileType(const Vector2i& position) const;
 
+	void SetTileType(const Vector2i& position, const TileType& tileType);
+
+	void CreatePortal(const Vector2i& start, const Vector2i& end);
+
 	void Init() override;
 	void Reset();
 };

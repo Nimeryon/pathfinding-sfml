@@ -9,7 +9,7 @@ namespace Astar
 {
 	std::stack<Vector2i> RetracePath(Node* start_n, Node* end_n);
 
-	Node* FindLowestF(std::vector<Node*> nodes);
+	Node* FindLowestF(std::vector<Node*>& nodes);
 
 	bool FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal);
 }

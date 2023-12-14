@@ -25,6 +25,20 @@ Vector2i TileGrid::GetEndPosition() const
 }
 const TileType& TileGrid::GetTileType(const Vector2i& position) const { return GetValue(position).GetTileType(); }
 
+void TileGrid::SetTileType(const Vector2i& position, const TileType& tileType)
+{
+	GetValue(position).SetTileType(tileType);
+}
+
+void TileGrid::CreatePortal(const Vector2i& start, const Vector2i& end)
+{
+	SetTileType(start, TileType::PORTAL);
+	GetValue(start).SetLink(end);
+
+	SetTileType(end, TileType::PORTAL);
+	GetValue(end).SetLink(start);
+}
+
 void TileGrid::Init()
 {
 	Grid::Init();

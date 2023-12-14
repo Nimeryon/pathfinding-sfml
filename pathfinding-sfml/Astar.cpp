@@ -11,13 +11,15 @@ std::stack<Vector2i> Astar::RetracePath(Node* start_n, Node* end_n)
 	{
 		node->m_path = true;
 		node = node->m_parent;
+		if (node->GetType() == TileType::PORTAL)
+			path.push(node->GetTile()->GetGridPosition());
 		path.push(node->GetPosition());
 	}
 
 	return path;
 }
 
-Node* Astar::FindLowestF(std::vector<Node*> nodes)
+Node* Astar::FindLowestF(std::vector<Node*>& nodes)
 {
 	Node* lowest_f = nodes.front();
 	int i = 0;
@@ -29,6 +31,7 @@ Node* Astar::FindLowestF(std::vector<Node*> nodes)
 			i++;
 		}
 	}
+
 	nodes.erase(nodes.begin() + i);
 	return lowest_f;
 }
@@ -46,28 +49,23 @@ bool Astar::FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool dia
 
 	current_n->SetH(start_n->GetNodeDistance(end_n));
 
-
 	while (openNet.size() > 0)
 	{
-		current_n = openNet.front();
 		Node* n = FindLowestF(openNet);
 		closedNet.emplace_back(n);
 
 		std::vector<Node*> neighbours = Pathfinding::GetNodeNeighbours(grid, n, diagonal);
 
-		if (n == end_n)
-		{
-			RetracePath(start_n, end_n);
-			return true;
-		}
+		if (n == end_n) return true;
 		
 		for (auto* node : neighbours)
 		{
 			if (!node->isWalkable()) continue;
 
-			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())continue;
+			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())
+				continue;
 
-			else if (std::find(openNet.begin(), openNet.end(), node) != openNet.end())
+			if (std::find(openNet.begin(), openNet.end(), node) != openNet.end())
 			{
 				float temp_g = n->GetG() + node->GetNodeDistance(n);
 
