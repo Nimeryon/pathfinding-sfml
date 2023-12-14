@@ -27,6 +27,9 @@ public:
     int GetG() const { return m_cost_g; }
     int GetH() const { return m_cost_h; }
 
+    int GetTileX() const{}
+    int GetTileY() const{}
+
     float GetNodeDistance(Node* const node);
 
     void SetG(int cost_g) { m_cost_g = cost_g; }
@@ -40,6 +43,7 @@ public:
 
 
     bool isWalkable() { return m_Tile->GetTileType() != TileType::WALL; }
+    bool isPortal() { return m_Tile->GetTileType() == TileType::PORTAL; }
     TileType GetType() { return m_Tile->GetTileType(); }
 
     void ResetNode();
@@ -70,4 +74,5 @@ private:
 
     int m_cost_g = 0;
     int m_cost_h = 0;
+    int m_cost_multiplier = 1;
 };

@@ -1,11 +1,13 @@
 #pragma once
 #include <ostream>
+#include "Vector2.h"
 
 enum class TileType
 {
 	NONE,
 	START,
 	WALL,
+	PORTAL,
 	END
 };
 
@@ -17,9 +19,13 @@ public:
 	const TileType& GetTileType() const;
 
 	void SetTileType(const TileType& type);
+	void SetLink(const Vector2i pos);
+
+	Vector2i GetLinkPos();
 
 private:
 	TileType m_type;
+	Vector2i m_link;
 };
 
 std::ostream& operator<<(std::ostream& os, const Tile& tile);
