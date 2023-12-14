@@ -2,6 +2,9 @@
 #include <ostream>
 #include "Vector2.h"
 
+#include "Delegate.h"
+#include "Vector2.h"
+
 enum class TileType
 {
 	NONE,
@@ -22,6 +25,8 @@ public:
 	void SetLink(const Vector2i pos);
 
 	Vector2i GetLinkPos();
+
+	Delegate<const Tile&> onValueChange;
 
 private:
 	TileType m_type;

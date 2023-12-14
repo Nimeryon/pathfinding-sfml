@@ -6,7 +6,11 @@ Tile::Tile(const TileType& type) :
 
 const TileType& Tile::GetTileType() const { return m_type; }
 
-void Tile::SetTileType(const TileType& type) { m_type = type; }
+void Tile::SetTileType(const TileType& type)
+{
+	m_type = type;
+	onValueChange(*this);
+}
 
 void Tile::SetLink(const Vector2i pos) { m_link = pos; }
 
