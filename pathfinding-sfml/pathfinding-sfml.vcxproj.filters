@@ -52,10 +52,10 @@
     <Filter Include="Header Files\GameData\Pathfinding">
       <UniqueIdentifier>{21bea793-3d94-47fa-bdd6-8eabded37090}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\GameData">
+    <Filter Include="Source Files\GameData">
       <UniqueIdentifier>{e7e30cef-6f2d-47d5-bc93-fbd242bb9064}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\GameData\Pathfinding">
+    <Filter Include="Source Files\GameData\Pathfinding">
       <UniqueIdentifier>{8445e496-1a35-4394-9e2d-70a435a74e9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -97,22 +97,22 @@
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="Astar.cpp">
-      <Filter>Resource Files\GameData\Pathfinding</Filter>
+      <Filter>Source Files\GameData\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Resource Files\GameData\Pathfinding</Filter>
+      <Filter>Source Files\GameData\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="Pathfinding.cpp">
-      <Filter>Resource Files\GameData\Pathfinding</Filter>
+      <Filter>Source Files\GameData\Pathfinding</Filter>
     </ClCompile>
     <ClCompile Include="GridVisualizer.cpp">
-      <Filter>Resource Files\GameData</Filter>
+      <Filter>Source Files\GameData</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Resource Files\GameData</Filter>
+      <Filter>Source Files\GameData</Filter>
     </ClCompile>
     <ClCompile Include="TileGrid.cpp">
-      <Filter>Resource Files\GameData</Filter>
+      <Filter>Source Files\GameData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
