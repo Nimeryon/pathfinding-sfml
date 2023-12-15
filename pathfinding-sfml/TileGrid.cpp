@@ -27,6 +27,8 @@ const TileType& TileGrid::GetTileType(const Vector2i& position) const { return G
 
 void TileGrid::SetTileType(const Vector2i& position, const TileType& tileType, bool ignorePortalTypeCheck)
 {
+	if (position == Vector2i(-1, -1)) return;
+
 	if (tileType == TileType::START)
 		GetValue(GetStartPosition()).SetTileType(TileType::NONE);
 
