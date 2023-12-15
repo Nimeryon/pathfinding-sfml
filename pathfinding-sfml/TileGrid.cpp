@@ -30,10 +30,18 @@ void TileGrid::SetTileType(const Vector2i& position, const TileType& tileType, b
 	if (position == Vector2i(-1, -1)) return;
 
 	if (tileType == TileType::START)
-		GetValue(GetStartPosition()).SetTileType(TileType::NONE);
+	{
+		const Vector2i startPosition = GetStartPosition();
+		if (startPosition != Vector2i(-1, -1))
+			GetValue(startPosition).SetTileType(TileType::NONE);
+	}
 
 	if (tileType == TileType::END)
-		GetValue(GetEndPosition()).SetTileType(TileType::NONE);
+	{
+		const Vector2i endPosition = GetEndPosition();
+		if (endPosition != Vector2i(-1, -1))
+			GetValue(endPosition).SetTileType(TileType::NONE);
+	}
 
 	if (!ignorePortalTypeCheck && GetValue(position).GetTileType() == TileType::PORTAL)
 		SetTileType(GetValue(position).GetLinkPosition(), TileType::NONE, true);
