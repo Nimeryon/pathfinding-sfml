@@ -114,6 +114,9 @@
     <ClCompile Include="TileGrid.cpp">
       <Filter>Source Files\GameData</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Dependencies\ImGUI\include\imconfig.h">
@@ -167,9 +170,6 @@
     <ClInclude Include="ISceneDependant.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Variables.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Header Files\GameData</Filter>
     </ClInclude>
@@ -193,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="TileGrid.h">
       <Filter>Header Files\GameData</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
