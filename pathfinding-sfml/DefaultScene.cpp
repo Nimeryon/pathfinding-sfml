@@ -29,22 +29,32 @@ void DefaultScene::SetText()
 
     subText.setFont(font);
     subText.setCharacterSize(windowHeight / 30);
-    subText.setString("Press 'Space' to start");
+    subText.setStyle(sf::Text::Italic);
+    subText.setString("Press Space to start");
 
     float subTextX = (windowWidth - subText.getLocalBounds().width) / 2;
     float subTextY = windowHeight / 2;
     subText.setPosition(subTextX, subTextY);
+
+    devName.setFont(font);
+    devName.setCharacterSize(windowHeight / 45);
+    devName.setString("Mourgues Paul\nPradel Hugo\nAuriol Thomas");
+
+    float nameX = (windowWidth / 40);
+    float nameY = (windowHeight - (windowHeight / 10));
+    devName.setPosition(nameX, nameY);
 }
 
 void DefaultScene::Draw(sf::RenderWindow& window)
 {
     window.draw(title);
     window.draw(subText);
+    window.draw(devName);
 }
 
 void DefaultScene::ProcessInput(const sf::Event& event)
 {
-    if (event.type == sf::Event::KeyReleased)
-        if (event.key.code == sf::Keyboard::Space)
+    if (event.type == sf::Event::KeyReleased || event.type == sf::Event::MouseButtonPressed)
+        if (event.key.code == sf::Keyboard::Space || event.mouseButton.button == sf::Mouse::Left)
 			StateMachine::Instance()->SetScene(std::make_unique<GameScene>());
 }
