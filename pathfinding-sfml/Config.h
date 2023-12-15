@@ -13,7 +13,7 @@ public:
 
 	static const nlohmann::json& GetConfig(const std::string& path);
 	template <typename T>
-	static const T& GetConfig(const std::string& path, const std::string& category, const std::string& value)
+	static T GetConfig(const std::string& path, const std::string& category, const std::string& value)
 	{
 		return GetConfig(path)[category][value].get<T>();
 	}

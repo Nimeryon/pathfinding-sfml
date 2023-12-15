@@ -14,7 +14,8 @@ Game::Game(const std::string& title, const sf::Time& logicTime) :
 	const int windowHeight = Config::GetConfig<int>("Assets\\config.json", "Window", "Height");
 	m_data->window.create(
 		sf::VideoMode(windowWidth, windowHeight, 1),
-		m_title
+		m_title,
+		sf::Style::Titlebar | sf::Style::Close
 	);
 	m_data->window.setActive(false);
 

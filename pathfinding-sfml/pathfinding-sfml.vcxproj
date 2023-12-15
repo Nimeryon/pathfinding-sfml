@@ -181,7 +181,6 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileGrid.h" />
-    <ClInclude Include="Variables.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <ItemGroup>
