@@ -60,7 +60,7 @@ bool Astar::FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool dia
 		
 		for (auto* node : neighbours)
 		{
-			if (!node->isWalkable()) continue;
+			if (!node->IsWalkable()) continue;
 
 			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())
 				continue;

@@ -18,6 +18,7 @@ public:
 private:
 	sf::Text title;
 	sf::Text subText;
+	sf::Text devName;
 
 	sf::Font font;
 };
