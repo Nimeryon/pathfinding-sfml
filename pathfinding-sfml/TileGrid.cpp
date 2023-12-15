@@ -25,8 +25,17 @@ Vector2i TileGrid::GetEndPosition() const
 }
 const TileType& TileGrid::GetTileType(const Vector2i& position) const { return GetValue(position).GetTileType(); }
 
-void TileGrid::SetTileType(const Vector2i& position, const TileType& tileType)
+void TileGrid::SetTileType(const Vector2i& position, const TileType& tileType, bool ignorePortalTypeCheck)
 {
+	if (tileType == TileType::START)
+		GetValue(GetStartPosition()).SetTileType(TileType::NONE);
+
+	if (tileType == TileType::END)
+		GetValue(GetEndPosition()).SetTileType(TileType::NONE);
+
+	if (!ignorePortalTypeCheck && GetValue(position).GetTileType() == TileType::PORTAL)
+		SetTileType(GetValue(position).GetLinkPosition(), TileType::NONE, true);
+
 	GetValue(position).SetTileType(tileType);
 }
 

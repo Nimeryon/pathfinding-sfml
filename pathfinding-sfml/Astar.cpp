@@ -1,9 +1,14 @@
 #include "Astar.h"
 #include "Pathfinding.h"
 
-std::stack<Vector2i> Astar::RetracePath(Node* start_n, Node* end_n)
+Astar::PathPosition::PathPosition(const Vector2i& _position, bool _teleported) :
+	position(_position),
+	teleported(_teleported)
+{}
+
+std::stack<Astar::PathPosition> Astar::RetracePath(Node* start_n, Node* end_n)
 {
-	std::stack<Vector2i> path;
+	std::stack<PathPosition> path;
 	Node* node = end_n;
 
 	path.push(end_n->GetPosition());
@@ -12,11 +17,16 @@ std::stack<Vector2i> Astar::RetracePath(Node* start_n, Node* end_n)
 		node->m_path = true;
 		node = node->m_parent;
 		if (node->GetType() == TileType::PORTAL)
-			path.push(node->GetTile()->GetGridPosition());
+			path.push({ node->GetTile()->GetGridPosition(), true });
 		path.push(node->GetPosition());
 	}
 
 	return path;
+}
+
+std::stack<Astar::PathPosition> Astar::RetracePath(Grid<Node>& grid, const Vector2i& startPosition, const Vector2i& endPosition)
+{
+	return RetracePath(&grid.GetValue(startPosition), &grid.GetValue(endPosition));
 }
 
 Node* Astar::FindLowestF(std::vector<Node*>& nodes)
@@ -36,8 +46,10 @@ Node* Astar::FindLowestF(std::vector<Node*>& nodes)
 	return lowest_f;
 }
 
-bool Astar::FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool diagonal = true)
+bool Astar::FindAstarPath(Grid<Node>& grid, const Vector2i& startPosition, const Vector2i& endPosition, bool diagonal)
 {
+	Node* start_n = &grid.GetValue(startPosition);
+	Node* end_n = &grid.GetValue(endPosition);
 	if (!start_n || !end_n)
 		return false;
 
@@ -60,7 +72,7 @@ bool Astar::FindAstarPath(Grid<Node>& grid, Node* start_n, Node* end_n, bool dia
 		
 		for (auto* node : neighbours)
 		{
-			if (!node->isWalkable()) continue;
+			if (!node->IsWalkable()) continue;
 
 			if (std::find(closedNet.begin(), closedNet.end(), node) != closedNet.end())
 				continue;
